@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form>
+    用户名:<input type="text" id="username"/>
+    密码:<input type="password" id="password"/>
+    <input type="button" value="登录" id="login"/>
+</form>
+</body>
+<script>
+    var login = document.getElementById('login');
+
+
+    login.onclick = function () {
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        var xhr = null;
+        if(window.XMLHttpRequest){
+            xhr = new XMLHttpRequest();
+        }else{
+            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+        var url = 'second.php?uname='+username+'&pad='+password;
+        xhr.open('get',url,true);
+        //回调函数
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4){
+                if(xhr.status == 200){
+                    var data = xhr.responseText;
+                    console.log(data);
+                }
+            }
+        };
+        xhr.send();
+    }
+</script>
+</html>
